@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ㅋㅋ</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
+  
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -12,14 +13,9 @@
   
   <link rel="stylesheet" href="/sylvanian/css/oh.css">
   <link rel="icon" href="/sylvanian/box/image/tlqkf.jpg">
-  
 </head>
 
 <body>
-  <audio id="death-sound" preload="auto">
-    <source src="/sylvanian/roblox-death-sound_1.mp3" type="audio/mpeg">
-  </audio>
-
   <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
@@ -120,22 +116,21 @@
     </h1>
   </div>
 
-<script>
-  // 경로를 절대경로(/sylvanian/...)로 지정해서 확실하게 찾도록 설정
-  const sound = new Audio('/sylvanian/roblox-death-sound_1.mp3');
-  sound.volume = 0.8;
+  <script>
+    // 상대 경로 지정
+    const audio = new Audio('../roblox-death-sound_1.mp3');
+    audio.volume = 0.8;
 
-  // 화면 아무 데나 클릭하면 즉시 소리 재생
-  const playSound = () => {
-    sound.play().then(() => {
-      console.log("재생 성공!");
-    }).catch(err => {
-      console.log("재생 실패 에러:", err);
+    const playSound = () => {
+      audio.play();
+    };
+
+    // 진입 시 자동재생 시도 (성공하면 바로 소리 남)
+    audio.play().catch(() => {
+      // 브라우저 차단 시, 화면 아무 데나 클릭 또는 아무 키나 누르면 즉시 재생
+      window.addEventListener('click', playSound, { once: true });
+      window.addEventListener('keydown', playSound, { once: true });
     });
-  };
-
-  // 로드 즉시 시도 + 클릭/키 입력 시 재생
-  playSound();
-  window.addEventListener("click", playSound, { once: true });
-  window.addEventListener("keydown", playSound, { once: true });
-</script>
+  </script>
+</body>
+</html>
