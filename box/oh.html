@@ -9,10 +9,8 @@
 </head>
 
 <body>
-  <!-- HTML 오디오 태그 직접 생성 -->
-  <audio id="mySound" preload="auto">
-    <source src="../roblox-death-sound_1.mp3" type="audio/mpeg">
-  </audio>
+  <!-- GitHub Pages의 절대 루트 경로 적용 -->
+  <audio id="mySound" preload="auto" src="/sylvanian/roblox-death-sound_1.mp3"></audio>
 
   <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
@@ -117,18 +115,21 @@
   <script>
     const audio = document.getElementById('mySound');
 
-    function play() {
+    function playSound() {
       if (audio) {
+        audio.currentTime = 0;
         audio.play().then(() => {
-          document.removeEventListener('click', play);
-          document.removeEventListener('keydown', play);
+          window.removeEventListener('click', playSound);
+          window.removeEventListener('touchstart', playSound);
+          window.removeEventListener('keydown', playSound);
         }).catch(() => {});
       }
     }
 
-    // 화면 어디든 클릭하거나 아무 키 누르면 무조건 재생
-    document.addEventListener('click', play);
-    document.addEventListener('keydown', play);
+    playSound();
+    window.addEventListener('click', playSound);
+    window.addEventListener('touchstart', playSound);
+    window.addEventListener('keydown', playSound);
   </script>
 </body>
 </html>
