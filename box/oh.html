@@ -9,6 +9,11 @@
 </head>
 
 <body>
+  <!-- HTML 오디오 태그 직접 생성 -->
+  <audio id="mySound" preload="auto">
+    <source src="../roblox-death-sound_1.mp3" type="audio/mpeg">
+  </audio>
+
   <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
@@ -109,30 +114,21 @@
     </h1>
   </div>
 
- <script>
-  // 1. 음원 파일 생성 (상대경로)
-  const sound = new Audio('../roblox-death-sound_1.mp3');
-  sound.volume = 0.8;
+  <script>
+    const audio = document.getElementById('mySound');
 
-  // 2. 소리 재생 함수
-  function playAudio() {
-    sound.play().then(() => {
-      // 소리가 나면 더 이상 이벤트 안 왐
-      window.removeEventListener('click', playAudio);
-      window.removeEventListener('mousemove', playAudio);
-      window.removeEventListener('keydown', playAudio);
-    }).catch(function(e) {
-      console.log("재생 대기 중...");
-    });
-  }
+    function play() {
+      if (audio) {
+        audio.play().then(() => {
+          document.removeEventListener('click', play);
+          document.removeEventListener('keydown', play);
+        }).catch(() => {});
+      }
+    }
 
-  // 3. 접속 즉시 시도
-  playAudio();
-
-  // 4. 화면 클릭, 마우스 이동, 키 눌림 시 즉시 소리 재생
-  window.addEventListener('click', playAudio);
-  window.addEventListener('mousemove', playAudio);
-  window.addEventListener('keydown', playAudio);
-</script>
+    // 화면 어디든 클릭하거나 아무 키 누르면 무조건 재생
+    document.addEventListener('click', play);
+    document.addEventListener('keydown', play);
+  </script>
 </body>
 </html>
