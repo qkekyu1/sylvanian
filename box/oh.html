@@ -109,30 +109,30 @@
     </h1>
   </div>
 
-  <script>
-    // 상대 경로로 음원 파일 직접 지정
-    const audio = new Audio('../roblox-death-sound_1.mp3');
-    audio.volume = 0.8;
+ <script>
+  // 1. 음원 파일 생성 (상대경로)
+  const sound = new Audio('../roblox-death-sound_1.mp3');
+  sound.volume = 0.8;
 
-    // 소리 재생 시도 함수
-    const tryPlay = () => {
-      audio.play().then(() => {
-        // 재생에 성공하면 모든 이벤트 제거
-        window.removeEventListener('click', tryPlay);
-        window.removeEventListener('keydown', tryPlay);
-        window.removeEventListener('mousemove', tryPlay);
-      }).catch(() => {
-        // 자동재생 실패 시 대기
-      });
-    };
+  // 2. 소리 재생 함수
+  function playAudio() {
+    sound.play().then(() => {
+      // 소리가 나면 더 이상 이벤트 안 왐
+      window.removeEventListener('click', playAudio);
+      window.removeEventListener('mousemove', playAudio);
+      window.removeEventListener('keydown', playAudio);
+    }).catch(function(e) {
+      console.log("재생 대기 중...");
+    });
+  }
 
-    // 1. 진입 즉시 시도
-    tryPlay();
+  // 3. 접속 즉시 시도
+  playAudio();
 
-    // 2. 브라우저 차단 풀기용 사용자 액션 이벤트 (클릭, 키 입력, 마우스 이동)
-    window.addEventListener('click', tryPlay);
-    window.addEventListener('keydown', tryPlay);
-    window.addEventListener('mousemove', tryPlay);
-  </script>
+  // 4. 화면 클릭, 마우스 이동, 키 눌림 시 즉시 소리 재생
+  window.addEventListener('click', playAudio);
+  window.addEventListener('mousemove', playAudio);
+  window.addEventListener('keydown', playAudio);
+</script>
 </body>
 </html>
