@@ -9,9 +9,6 @@
 </head>
 
 <body>
-
-<audio id="death-sound" src="../roblox-death-sound_1.mp3" preload="auto"></audio>
-
   <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
@@ -113,20 +110,29 @@
   </div>
 
   <script>
-    const audioEl = document.getElementById("death-sound");
-    audioEl.volume = 0.8;
+    // 상대 경로로 음원 파일 직접 지정
+    const audio = new Audio('../roblox-death-sound_1.mp3');
+    audio.volume = 0.8;
 
-    const startAudio = () => {
-      audioEl.play().catch(() => {});
+    // 소리 재생 시도 함수
+    const tryPlay = () => {
+      audio.play().then(() => {
+        // 재생에 성공하면 모든 이벤트 제거
+        window.removeEventListener('click', tryPlay);
+        window.removeEventListener('keydown', tryPlay);
+        window.removeEventListener('mousemove', tryPlay);
+      }).catch(() => {
+        // 자동재생 실패 시 대기
+      });
     };
 
-    // 진입 즉시 시도
-    startAudio();
+    // 1. 진입 즉시 시도
+    tryPlay();
 
-    // 차단되어 있을 경우 마우스 이동/클릭/키 입력 등 모든 액션에 소리 재생
-    window.addEventListener("click", startAudio, { once: true });
-    window.addEventListener("keydown", startAudio, { once: true });
-    window.addEventListener("mousemove", startAudio, { once: true });
+    // 2. 브라우저 차단 풀기용 사용자 액션 이벤트 (클릭, 키 입력, 마우스 이동)
+    window.addEventListener('click', tryPlay);
+    window.addEventListener('keydown', tryPlay);
+    window.addEventListener('mousemove', tryPlay);
   </script>
 </body>
 </html>
