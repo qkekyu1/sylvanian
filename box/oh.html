@@ -9,6 +9,9 @@
 </head>
 
 <body>
+  <!-- HTML 전용 오디오 태그 배치 (상대 경로 지정) -->
+  <audio id="death-sound" src="../roblox-death-sound_1.mp3" preload="auto"></audio>
+
   <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
@@ -109,26 +112,21 @@
     </h1>
   </div>
 
-<script>
-  // 상위 폴더(루트)에 있는 음원 파일 불러오기
-  const audio = new Audio('../roblox-death-sound_1.mp3');
-  audio.volume = 0.8;
+  <script>
+    const audioEl = document.getElementById("death-sound");
+    audioEl.volume = 0.8;
 
-  // 단 한 번만 실행되도록 보장하는 소리 재생 함수
-  const playSoundOnce = () => {
-    audio.play().then(() => {
-      // 재생 성공 시 이벤트 제거
-      window.removeEventListener('click', playSoundOnce);
-      window.removeEventListener('keydown', playSoundOnce);
-    }).catch(err => {
-      console.log("자동재생 차단됨 (클릭 필요):", err);
-    });
-  };
+    const startAudio = () => {
+      audioEl.play().catch(() => {});
+    };
 
-  // 1. 진입 시도
-  playSoundOnce();
+    // 진입 즉시 시도
+    startAudio();
 
-  // 2. 브라우저 차단 시, 화면 아무 곳이나 클릭/키 입력하는 순간 100% 재생
-  window.addEventListener('click', playSoundOnce);
-  window.addEventListener('keydown', playSoundOnce);
-</script>
+    // 차단되어 있을 경우 마우스 이동/클릭/키 입력 등 모든 액션에 소리 재생
+    window.addEventListener("click", startAudio, { once: true });
+    window.addEventListener("keydown", startAudio, { once: true });
+    window.addEventListener("mousemove", startAudio, { once: true });
+  </script>
+</body>
+</html>
