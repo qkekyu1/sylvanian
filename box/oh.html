@@ -110,18 +110,25 @@
   </div>
 
 <script>
-  // box 폴더 안에서 상위 폴더(루트)에 있는 mp3를 가리키도록 '../' 사용
+  // 상위 폴더(루트)에 있는 음원 파일 불러오기
   const audio = new Audio('../roblox-death-sound_1.mp3');
   audio.volume = 0.8;
 
-  const playSound = () => {
-    audio.play().catch(err => console.log("재생 차단됨:", err));
+  // 단 한 번만 실행되도록 보장하는 소리 재생 함수
+  const playSoundOnce = () => {
+    audio.play().then(() => {
+      // 재생 성공 시 이벤트 제거
+      window.removeEventListener('click', playSoundOnce);
+      window.removeEventListener('keydown', playSoundOnce);
+    }).catch(err => {
+      console.log("자동재생 차단됨 (클릭 필요):", err);
+    });
   };
 
-  // 접속 즉시 시도
-  playSound();
+  // 1. 진입 시도
+  playSoundOnce();
 
-  // 브라우저 자동재생 차단 대비: 화면 클릭이나 키 입력 시 무조건 재생
-  window.addEventListener('click', playSound);
-  window.addEventListener('keydown', playSound);
+  // 2. 브라우저 차단 시, 화면 아무 곳이나 클릭/키 입력하는 순간 100% 재생
+  window.addEventListener('click', playSoundOnce);
+  window.addEventListener('keydown', playSoundOnce);
 </script>
