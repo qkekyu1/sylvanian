@@ -1,0 +1,41 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+}
+
+.marquee {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  gap: 140px;
+  width: max-content;
+  animation: move-left 15s linear infinite;
+}
+
+.group {
+  display: flex;
+  align-items: center;
+  gap: 140px;
+}
+
+.group a {
+  flex: 0 0 auto;
+}
+
+.group img {
+  display: block;
+  width: 300px;
+  height: auto;
+}
+
+@keyframes move-left {
+  to {
+    transform: translateX(calc(-50% - 70px));
+  }
+}
