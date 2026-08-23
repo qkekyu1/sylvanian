@@ -109,21 +109,19 @@
     </h1>
   </div>
 
-  <script>
-    // 상대 경로 지정
-    const audio = new Audio('/sylvanian/roblox-death-sound_1.mp3');
-    audio.volume = 0.8;
+<script>
+  // box 폴더 안에서 상위 폴더(루트)에 있는 mp3를 가리키도록 '../' 사용
+  const audio = new Audio('../roblox-death-sound_1.mp3');
+  audio.volume = 0.8;
 
-    const playSound = () => {
-      audio.play();
-    };
+  const playSound = () => {
+    audio.play().catch(err => console.log("재생 차단됨:", err));
+  };
 
-    // 진입 시 자동재생 시도 (성공하면 바로 소리 남)
-    audio.play().catch(() => {
-      // 브라우저 차단 시, 화면 아무 데나 클릭 또는 아무 키나 누르면 즉시 재생
-      window.addEventListener('click', playSound, { once: true });
-      window.addEventListener('keydown', playSound, { once: true });
-    });
-  </script>
-</body>
-</html>
+  // 접속 즉시 시도
+  playSound();
+
+  // 브라우저 자동재생 차단 대비: 화면 클릭이나 키 입력 시 무조건 재생
+  window.addEventListener('click', playSound);
+  window.addEventListener('keydown', playSound);
+</script>
