@@ -114,17 +114,22 @@
     </h1>
   </div>
 
-  <script>
-    const sound = document.getElementById("death-sound");
-    sound.volume = 0.5;
+<script>
+  // 경로를 절대경로(/sylvanian/...)로 지정해서 확실하게 찾도록 설정
+  const sound = new Audio('/sylvanian/roblox-death-sound_1.mp3');
+  sound.volume = 0.8;
 
-    // 브라우저 차단 회피: 화면 아무 곳이나 클릭하거나 키를 누르면 재생
-    const playAudio = () => {
-      sound.play().catch(e => console.log(e));
-    };
+  // 화면 아무 데나 클릭하면 즉시 소리 재생
+  const playSound = () => {
+    sound.play().then(() => {
+      console.log("재생 성공!");
+    }).catch(err => {
+      console.log("재생 실패 에러:", err);
+    });
+  };
 
-    window.addEventListener("click", playAudio, { once: true });
-    window.addEventListener("keydown", playAudio, { once: true });
-  </script>
-</body>
-</html>
+  // 로드 즉시 시도 + 클릭/키 입력 시 재생
+  playSound();
+  window.addEventListener("click", playSound, { once: true });
+  window.addEventListener("keydown", playSound, { once: true });
+</script>
