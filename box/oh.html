@@ -4,16 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ㅋㅋ</title>
-  <link rel="stylesheet" href="css/oh.css">
-  <link rel="icon" href="/box/image/tlqkf.jpg">
+  <link rel="stylesheet" href="../css/oh.css">
+  <link rel="icon" href="../box/image/tlqkf.jpg">
 </head>
 
 <body>
-      <audio id="death-sound" autoplay>
-    <source src="roblox-death-sound_1.mp3" type="audio/mpeg">
+  <audio id="death-sound" preload="auto">
+    <source src="../roblox-death-sound_1.mp3" type="audio/mpeg">
   </audio>
 
-    <div class="warning">
+  <div class="warning">
     <h1>저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
         저기요... 잘못 들어오셨어요... 
@@ -111,14 +111,19 @@
         저기요... 잘못 들어오셨어요...
         저기요... 잘못 들어오셨어요... 
     </h1>
-    </div>
+  </div>
 
-      <script>
-      const sound = document.getElementById("death-sound");
-      sound.volume = 0.5;
-      sound.play().catch(() => {
-      document.addEventListener("click", () => sound.play(), { once: true });
-    });
+  <script>
+    const sound = document.getElementById("death-sound");
+    sound.volume = 0.5;
+
+    // 브라우저 차단 회피: 화면 아무 곳이나 클릭하거나 키를 누르면 재생
+    const playAudio = () => {
+      sound.play().catch(e => console.log(e));
+    };
+
+    window.addEventListener("click", playAudio, { once: true });
+    window.addEventListener("keydown", playAudio, { once: true });
   </script>
 </body>
 </html>
