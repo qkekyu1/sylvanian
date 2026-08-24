@@ -1,7 +1,7 @@
+
 * {
   box-sizing: border-box;
 }
-
 
 html,
 body {
@@ -10,65 +10,46 @@ body {
 
   width: 100%;
   min-height: 100%;
-}
 
+  background-color: rgb(0, 0, 0);
+}
 
 body {
   min-height: 100vh;
 
-  background-color: black;
-  color: red;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  color: rgb(255, 0, 0);
 
   overflow: hidden;
 }
 
-
-/* =========================
-   화면 전체를 사용하는 영역
-========================= */
-
 .warning {
-  width: 100vw;
-  min-height: 100vh;
-
+  width: 100%;
   margin: 0;
   padding: 0;
 
-  text-align: center;
+  text-align: left;
 
-  animation:
-    shake 0.12s infinite,
-    flicker 2.8s infinite;
+  animation: shake 0.12s infinite, flicker 2.8s infinite;
 }
 
-
-/* =========================
-   텍스트
-========================= */
-
 .warning h1 {
-  width: 100vw;
-
+  width: 100%;
   margin: 0;
   padding: 0;
 
   font-size: 32px;
   line-height: 1.15;
-  font-weight: 700;
 
-  /* ★ 이게 중요 */
+  font-weight: bold;
+
+  text-align: left;
+
+  /* 한글이 자연스럽게 줄바꿈되도록 */
   word-break: normal;
-  overflow-wrap: normal;
 }
 
 
-/* =========================
-   흔들림
-========================= */
+/* 흔들림 */
 
 @keyframes shake {
 
@@ -95,9 +76,7 @@ body {
 }
 
 
-/* =========================
-   깜빡임
-========================= */
+/* 깜빡임 */
 
 @keyframes flicker {
 
